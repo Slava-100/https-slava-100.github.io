@@ -1,0 +1,19 @@
+name = "halloween-miniapp"
+main = "src/index.js"
+compatibility_date = "2026-10-28"
+
+# Worker обслуживает все запросы, чтобы отдавать нужные заголовки
+# (CSP, no-store) и обрабатывать /admin и /api.
+[assets]
+directory = "../public"
+binding = "ASSETS"
+run_worker_first = true
+
+[[d1_databases]]
+binding = "DB"
+database_name = "halloween-miniapp"
+database_id = "55f582d7-7004-4e2c-a16e-7d3248013a0d"
+
+[vars]
+BOT_USERNAME = "HaHalloweenbot"
+MAX_INIT_AGE = "86400"

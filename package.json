@@ -9,7 +9,11 @@
     "dev": "node server.js",
     "status": "node tools/cli.js status",
     "export": "node tools/cli.js export",
-    "reset": "node tools/cli.js reset"
+    "reset": "node tools/cli.js reset",
+    "worker:login": "npx wrangler@3 login",
+    "worker:dev": "npx wrangler@3 dev --config worker/wrangler.toml",
+    "worker:deploy": "npx wrangler@3 deploy --config worker/wrangler.toml",
+    "worker:schema": "npx wrangler@3 d1 execute halloween-miniapp --remote --file worker/schema.sql"
   },
   "engines": {
     "node": ">=16"

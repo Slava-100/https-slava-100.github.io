@@ -15,6 +15,28 @@ Telegram Mini App для Хэллоуин-вечеринки: гость наж�
 
 Стек: **Node.js без единой зависимости** (только встроенные модули) + ванильный
 фронтенд. Ничего ставить не нужно — `node server.js` и всё работает.
+Прод-версия развёрнута как **Cloudflare Worker + D1** (файлы в `worker/`).
+
+---
+
+## 🌐 Прод: Cloudflare Worker + D1
+
+Постоянный адрес (без туннелей и смены URL):
+
+**https://halloween-miniapp.slava-halloween-2026.workers.dev**
+
+Важно: в РФ провайдеры блокируют `*.workers.dev` — на телефоне/ПК нужен VPN.
+Через VPN страница и API открываются стабильно.
+
+- Код: `worker/src/index.js`, схема: `worker/schema.sql`, конфиг: `worker/wrangler.toml`.
+- База: D1 `halloween-miniapp` (ID в `wrangler.toml`).
+- Секреты `BOT_TOKEN` и `ADMIN_TOKEN` задаются через `wrangler secret bulk`, в git не попадают.
+- Фронтенд и API отдаёт один Worker, поэтому CORS и отдельный домен не нужны.
+- Деплой: `npm run worker:deploy` (нужен Node 18+ и `wrangler login`).
+- Схема на удалённой D1: `npm run worker:schema`.
+
+GitHub Pages для этого приложения не используется: Pages умеет только статику,
+а здесь нужен бэкенд (`/api`, D1, проверка Telegram initData).
 
 ---
 

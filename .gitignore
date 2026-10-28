@@ -22,3 +22,10 @@ tools/certs/
 *.log
 .DS_Store
 Thumbs.db
+
+# Cloudflare dev secrets
+worker/.dev.vars
+
+# wrangler local state (D1, cache)
+worker/.wrangler/
+
