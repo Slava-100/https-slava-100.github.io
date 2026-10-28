@@ -1,0 +1,24 @@
+# зависимости не нужны, но на всякий случай
+node_modules/
+
+# секреты
+.env
+
+# локальные данные гостей
+data/
+data-test/
+
+# выгрузки списка команд
+exports/
+
+# скачанный cloudflared
+tools/bin/
+
+# локальные сертификаты (Kaspersky root и т.п.)
+tools/certs/
+*.pem
+
+# служебное
+*.log
+.DS_Store
+Thumbs.db

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#08040f">
+  <title>Хэллоуин · админка</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎃</text></svg>">
+  <link rel="stylesheet" href="/admin.css">
+</head>
+<body>
+  <header class="top">
+    <div class="top__brand">
+      <span class="top__icon">🎃</span>
+      <div>
+        <h1>Хэллоуин · команды</h1>
+        <p class="top__sub" id="updatedAt">ожидание данных…</p>
+      </div>
+    </div>
+    <div class="top__actions">
+      <button class="btn btn--small btn--ghost" id="refreshBtn" type="button">Обновить</button>
+      <button class="btn btn--small btn--ghost" id="csvBtn" type="button">CSV</button>
+    </div>
+  </header>
+
+  <!-- Ввод токена -->
+  <section class="gate" id="gate" hidden>
+    <div class="gate__card">
+      <div class="gate__icon">🕯️</div>
+      <h2>Нужен ключ</h2>
+      <p>Введи админ-токен из файла <code>.env</code> (переменная <code>ADMIN_TOKEN</code>).</p>
+      <form id="gateForm" class="gate__form">
+        <input id="tokenInput" type="password" autocomplete="current-password" placeholder="ADMIN_TOKEN" required>
+        <button class="btn btn--primary" type="submit">Войти</button>
+      </form>
+      <p class="gate__error" id="gateError" hidden></p>
+    </div>
+  </section>
+
+  <main class="page" id="page" hidden>
+    <section class="summary" aria-label="Сводка">
+      <div class="stat">
+        <span class="stat__value" id="statTotal">0</span>
+        <span class="stat__label">гостей</span>
+      </div>
+      <div class="stat">
+        <span class="stat__value" id="statRound">0</span>
+        <span class="stat__label">раунд</span>
+      </div>
+      <div class="stat">
+        <span class="stat__value" id="statRoundProgress">0/4</span>
+        <span class="stat__label">в раунде</span>
+      </div>
+      <div class="stat">
+        <span class="stat__value" id="statPool">4</span>
+        <span class="stat__label">в пуле</span>
+      </div>
+    </section>
+
+    <div class="toolbar">
+      <button class="btn btn--small btn--ghost" id="resetRoundBtn" type="button">Новый раунд</button>
+      <button class="btn btn--small btn--danger" id="resetAllBtn" type="button">Сбросить всё</button>
+      <span class="toolbar__hint" id="poolHint"></span>
+    </div>
+
+    <section class="teams" id="teams" aria-live="polite"></section>
+
+    <p class="disclaimer">
+      «Новый раунд» сбрасывает пул команд: следующие 4 гостя снова получат по одной команде.
+      «Сбросить всё» удаляет всех участников и историю — используй только до начала вечеринки.
+    </p>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="/admin.js"></script>
+</body>
+</html>

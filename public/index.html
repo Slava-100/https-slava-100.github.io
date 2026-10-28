@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1, user-scalable=no">
+  <meta name="theme-color" content="#08040f">
+  <meta name="color-scheme" content="dark">
+  <title>Хэллоуин · твоя команда</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎃</text></svg>">
+  <link rel="stylesheet" href="/styles.css?v=4">
+  <script src="https://telegram.org/js/telegram-web-app.js" async id="tgSdk"></script>
+</head>
+<body>
+  <div class="bg" aria-hidden="true">
+    <div class="bg__glow bg__glow--violet"></div>
+    <div class="bg__glow bg__glow--pumpkin"></div>
+    <div class="bg__moon"></div>
+    <div class="bg__grain"></div>
+    <canvas id="embers" class="bg__embers"></canvas>
+    <div class="bg__fog bg__fog--one"></div>
+    <div class="bg__fog bg__fog--two"></div>
+    <div class="bats">
+      <span class="bat bat--1">🦇</span>
+      <span class="bat bat--2">🦇</span>
+      <span class="bat bat--3">🦇</span>
+    </div>
+    <div class="vignette"></div>
+  </div>
+
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand__icon">🎃</span>
+      <span class="brand__text">HALLOWEEN<br><b>PARTY</b></span>
+    </div>
+    <div class="topbar__actions">
+      <button class="icon-btn icon-btn--host" id="hostBtn" type="button" hidden aria-label="Список команд" title="Список команд">
+        <span aria-hidden="true">👥</span>
+      </button>
+      <button class="icon-btn" id="soundBtn" type="button" aria-pressed="false" aria-label="Включить звук">
+        <span id="soundIcon">🔇</span>
+      </button>
+    </div>
+  </header>
+
+  <main class="stage" id="stage">
+
+    <!-- ЭКРАН 1: интро -->
+    <section class="screen screen--intro" data-view="intro">
+      <p class="kicker">31 октября · вечеринка ужасов</p>
+      <h1 class="title">Кто ты<br><em>этой ночью?</em></h1>
+      <p class="lede">Четыре клана делят гостей поровну.<br>Духи уже тянут жребий.</p>
+
+      <button class="eye" id="eyeBtn" type="button">
+        <span class="eye__halo" aria-hidden="true"></span>
+        <svg class="eye__svg" viewBox="0 0 260 160" aria-hidden="true">
+          <defs>
+            <clipPath id="lidClip">
+              <path d="M12 80 C60 18 200 18 248 80 C200 142 60 142 12 80 Z"/>
+            </clipPath>
+            <radialGradient id="sclera" cx="50%" cy="42%" r="65%">
+              <stop offset="0%" stop-color="#fff6ea"/>
+              <stop offset="55%" stop-color="#eed9c6"/>
+              <stop offset="100%" stop-color="#c9a9a0"/>
+            </radialGradient>
+            <radialGradient id="iris" cx="42%" cy="38%" r="70%">
+              <stop offset="0%" stop-color="#ffb43c"/>
+              <stop offset="38%" stop-color="#ff6a1f"/>
+              <stop offset="72%" stop-color="#b3170f"/>
+              <stop offset="100%" stop-color="#4a0505"/>
+            </radialGradient>
+            <radialGradient id="bloodShade" cx="50%" cy="120%" r="90%">
+              <stop offset="0%" stop-color="rgba(150,10,25,.75)"/>
+              <stop offset="55%" stop-color="rgba(120,8,20,0)"/>
+            </radialGradient>
+            <filter id="softGlow" x="-40%" y="-40%" width="180%" height="180%">
+              <feGaussianBlur stdDeviation="4" result="blur"/>
+              <feMerge>
+                <feMergeNode in="blur"/>
+                <feMergeNode in="SourceGraphic"/>
+              </feMerge>
+            </filter>
+          </defs>
+
+          <g clip-path="url(#lidClip)">
+            <ellipse cx="130" cy="80" rx="120" ry="58" fill="url(#sclera)"/>
+            <g class="eye__veins" stroke="#9d1425" fill="none" stroke-linecap="round">
+              <path d="M22 84 C46 74 54 92 74 86" stroke-width="1.6" opacity=".45"/>
+              <path d="M238 88 C214 78 206 96 186 88" stroke-width="1.6" opacity=".45"/>
+              <path d="M36 96 C58 92 66 104 84 96" stroke-width="1.2" opacity=".3"/>
+              <path d="M224 68 C204 64 196 76 176 70" stroke-width="1.2" opacity=".3"/>
+            </g>
+            <ellipse cx="130" cy="150" rx="120" ry="70" fill="url(#bloodShade)"/>
+            <g id="eyeIris" class="eye__iris">
+              <circle cx="130" cy="80" r="44" fill="url(#iris)" filter="url(#softGlow)"/>
+              <circle cx="130" cy="80" r="44" fill="none" stroke="rgba(60,0,0,.55)" stroke-width="2"/>
+              <g class="eye__fibers" stroke="rgba(255,190,90,.35)" fill="none" stroke-width="1.2">
+                <path d="M130 38 l0 12"/><path d="M130 122 l0 -12"/>
+                <path d="M88 80 l12 0"/><path d="M172 80 l-12 0"/>
+                <path d="M100 50 l9 9"/><path d="M160 110 l-9 -9"/>
+                <path d="M160 50 l-9 9"/><path d="M100 110 l9 -9"/>
+              </g>
+              <circle cx="130" cy="80" r="19" fill="#0a0206"/>
+              <circle cx="119" cy="68" r="7" fill="rgba(255,255,255,.75)"/>
+              <circle cx="141" cy="92" r="3" fill="rgba(255,255,255,.25)"/>
+            </g>
+          </g>
+
+          <path d="M12 80 C60 18 200 18 248 80 C200 142 60 142 12 80 Z"
+                fill="none" stroke="rgba(255,96,64,.65)" stroke-width="2.5" filter="url(#softGlow)"/>
+          <g stroke="rgba(255,120,80,.35)" stroke-width="2" fill="none" stroke-linecap="round">
+            <path d="M60 30 l-6 -12"/><path d="M92 22 l-3 -13"/><path d="M130 19 l0 -13"/>
+            <path d="M168 22 l3 -13"/><path d="M200 30 l6 -12"/>
+          </g>
+        </svg>
+        <span class="eye__caption">ВЫРВИ ГЛАЗ</span>
+      </button>
+
+      <p class="hint">Одно нажатие — один жребий</p>
+      <div class="teams-strip" id="teamsStrip" aria-label="Команды вечеринки"></div>
+      <p class="footnote" id="introFootnote"></p>
+    </section>
+
+    <!-- ЭКРАН 2: анимация -->
+    <section class="screen screen--spin" data-view="spin" hidden>
+      <p class="spin__kicker">Духи тянут жребий</p>
+      <div class="roulette" id="roulette">
+        <div class="roulette__pointer" aria-hidden="true"></div>
+        <div class="roulette__ring" id="rouletteRing">
+          <!-- слоты рисует app.js -->
+        </div>
+        <div class="roulette__core" aria-hidden="true">
+          <span class="roulette__core-eye">👁️</span>
+        </div>
+      </div>
+      <p class="spin__text" id="spinText">Кости брошены<span class="dots"><i>.</i><i>.</i><i>.</i></span></p>
+    </section>
+
+    <!-- ЭКРАН 3: результат -->
+    <section class="screen screen--result" data-view="result" hidden>
+      <div class="card" id="card">
+        <div class="card__frame" aria-hidden="true"></div>
+        <p class="card__label">твоя команда</p>
+        <div class="card__sigil" id="cardSigil">🧟</div>
+        <h2 class="card__name" id="cardName">Зомби</h2>
+        <p class="card__tagline" id="cardTagline"></p>
+        <div class="card__rule" aria-hidden="true"><span>☠</span></div>
+        <p class="card__hint" id="cardHint"></p>
+        <div class="card__stats">
+          <span class="chip" id="cardTeamCount">0 в команде</span>
+          <span class="chip chip--ghost" id="cardGuestNo">гость #0</span>
+        </div>
+        <p class="card__badge" id="cardBadge" hidden>Команда уже закреплена за тобой</p>
+      </div>
+
+      <div class="result-actions">
+        <button class="btn btn--primary" id="shareBtn" type="button">Позвать своих</button>
+        <button class="btn btn--ghost" id="replayBtn" type="button">Показать ещё раз</button>
+        <button class="btn btn--ghost" id="hostActionBtn" type="button" hidden>👥 Список команд</button>
+      </div>
+      <p class="hint" id="resultHint"></p>
+    </section>
+
+    <!-- ЭКРАН 4: ошибка -->
+    <section class="screen screen--error" data-view="error" hidden>
+      <div class="error__icon">🕯️</div>
+      <h2 class="error__title">Свеча погасла</h2>
+      <p class="error__text" id="errorText">Что-то пошло не так. Попробуй ещё раз.</p>
+      <button class="btn btn--primary" id="retryBtn" type="button">Попробовать снова</button>
+    </section>
+
+  </main>
+
+  <div class="flash" id="flash" aria-hidden="true"></div>
+  <div class="burst" id="burst" aria-hidden="true"></div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <!-- Панель ведущего: список команд -->
+  <div class="host" id="hostPanel" hidden>
+    <div class="host__backdrop" id="hostBackdrop" aria-hidden="true"></div>
+    <section class="host__sheet" role="dialog" aria-modal="true" aria-labelledby="hostTitle">
+      <header class="host__head">
+        <div>
+          <p class="host__kicker">все команды вечеринки</p>
+          <h2 class="host__title" id="hostTitle">Команды</h2>
+        </div>
+        <button class="icon-btn" id="hostClose" type="button" aria-label="Закрыть список">✕</button>
+      </header>
+      <div class="host__stats" id="hostStats"></div>
+      <p class="host__pool" id="hostPool"></p>
+      <div class="host__teams" id="hostTeams"></div>
+      <footer class="host__foot">
+        <span id="hostUpdated"></span>
+        <button class="btn btn--ghost host__refresh" id="hostRefresh" type="button">Обновить</button>
+      </footer>
+    </section>
+  </div>
+
+  <script src="/app.js?v=4"></script>
+</body>
+</html>

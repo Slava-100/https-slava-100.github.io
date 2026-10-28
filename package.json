@@ -1,0 +1,18 @@
+{
+  "name": "halloween-party-miniapp",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Telegram Mini App: распределение гостей Хэллоуин-вечеринки по четырём командам",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "status": "node tools/cli.js status",
+    "export": "node tools/cli.js export",
+    "reset": "node tools/cli.js reset"
+  },
+  "engines": {
+    "node": ">=16"
+  },
+  "license": "MIT"
+}
